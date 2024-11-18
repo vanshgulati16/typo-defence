@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
 import { cn } from '@/lib/utils'
-import { gameConfig } from '@/lib/utils/gameConfig'
-import { useGameStore } from '@/lib/stores/gameStore'
+import { popAnimation, destroyAnimation } from '@/lib/utils/animations'
 
 export function Enemy({ 
   id, 
@@ -22,6 +20,18 @@ export function Enemy({
       onReachEnd()
     }
   }, [x, onReachEnd])
+
+  useEffect(() => {
+    if (enemyRef.current) {
+      popAnimation(enemyRef.current)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isDestroyed && enemyRef.current) {
+      destroyAnimation(enemyRef.current)
+    }
+  }, [isDestroyed])
 
   return (
     <div

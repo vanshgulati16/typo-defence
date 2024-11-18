@@ -24,7 +24,7 @@ export function EnemyLayer() {
         if (enemy.isDestroyed) return null; // Skip rendering destroyed enemies
 
         const handleReachEnd = () => {
-          const defenseLinePosition = 70; // Adjust this value to match the Defense Line position
+          const defenseLinePosition = 60; // Adjust this value to match the Defense Line position
           if (enemy.x >= defenseLinePosition) {
             actions.damageHealth(10)
             actions.removeEnemy(enemy.id)
@@ -39,7 +39,7 @@ export function EnemyLayer() {
           />
         )
       })}
-      <ParticleEffect />
+      {/* <ParticleEffect /> */}
     </div>
   )
 }
