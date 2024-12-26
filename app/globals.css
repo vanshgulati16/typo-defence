@@ -39,6 +39,10 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --neubrutalism-border: 3px;
+    --neubrutalism-shadow-offset: 4px;
+    --neubrutalism-radius: 8px;
+    --neubrutalism-black: #000000;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -132,4 +136,12 @@ body {
 .particle-container::after {
   --x: 20px;
   --y: 20px;
+}
+
+.neubrutalism-shadow {
+  box-shadow: var(--neubrutalism-shadow-offset) var(--neubrutalism-shadow-offset) 0 0 var(--neubrutalism-black);
+}
+
+.neubrutalism-border {
+  border: var(--neubrutalism-border) solid var(--neubrutalism-black);
 }

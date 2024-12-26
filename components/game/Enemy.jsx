@@ -37,13 +37,13 @@ export function Enemy({
     <div
       ref={enemyRef}
       className={cn(
-        "absolute",
-        "px-4 py-2 rounded-md font-mono text-sm",
+        "absolute px-4 py-2 rounded-md font-mono text-base font-bold",
+        "neubrutalism-border neubrutalism-shadow",
         "transition-all duration-100",
-        wave <= 2 && "bg-primary/80 text-primary-foreground",
-        wave > 2 && wave <= 4 && "bg-yellow-500/80 text-black",
-        wave > 4 && "bg-destructive/80 text-destructive-foreground",
-        isMatching && "ring-2 ring-white scale-110 shadow-lg",
+        wave <= 2 && "bg-[#FFE14C] text-black",
+        wave > 2 && wave <= 4 && "bg-[#9EE493] text-black",
+        wave > 4 && "bg-[#FF6B6B] text-black",
+        isMatching && "ring-4 ring-black scale-110",
         isDestroyed && "pointer-events-none"
       )}
       style={{ left: `${x}%`, top: `${y}%` }}
