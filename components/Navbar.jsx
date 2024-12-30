@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 export function Navbar() {
@@ -5,11 +6,25 @@ export function Navbar() {
     <nav className="border-b bg-white">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <span className="text-xl font-bold font-mono">
+          {/* Logo and Nav Links */}
+          <div className="flex items-center gap-8">
+            <Link href="/" className="text-xl font-bold font-mono">
               ⌨️ Typo Defence
-            </span>
+            </Link>
+            <div className="flex gap-4">
+              <Link 
+                href="/" 
+                className="font-medium hover:text-primary/80"
+              >
+                Home
+              </Link>
+              <Link 
+                href="/leaderboard" 
+                className="font-medium hover:text-primary/80"
+              >
+                Leaderboard
+              </Link>
+            </div>
           </div>
 
           {/* Auth Buttons */}
