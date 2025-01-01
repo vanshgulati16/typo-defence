@@ -26,7 +26,7 @@ export function EnemyLayer() {
         const handleReachEnd = () => {
           const defenseLinePosition = 60; // Adjust this value to match the Defense Line position
           if (enemy.x >= defenseLinePosition) {
-            actions.damageHealth(10)
+            actions.damageHealth(10, enemy.isSpecial)
             actions.removeEnemy(enemy.id)
           }
         }

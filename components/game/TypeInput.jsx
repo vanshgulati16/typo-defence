@@ -19,7 +19,7 @@ export function TypeInput() {
       if (matchedEnemy) {
         // playSound('hit')  // Commented for now
         actions.destroyEnemy(matchedEnemy.id)
-        actions.updateScore(100)
+        // actions.updateScore(100)
         setInput('')
       } else {
         // playSound('error')  // Commented for now

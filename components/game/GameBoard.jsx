@@ -8,7 +8,6 @@ import { useGameStore } from '@/lib/stores/gameStore'
 import { gameConfig } from '@/lib/utils/gameConfig'
 import { EnemyLayer } from './EnemyLayer'
 import { TypeInput } from './TypeInput'
-import { GameHUD } from './GameHUD'
 import { WaveMessage } from './WaveMessage'
 import { GameOverPopup } from './GameOverPopup'
 import { Progress } from "@/components/ui/progress"

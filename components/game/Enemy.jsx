@@ -11,12 +11,13 @@ export function Enemy({
   wave, 
   isMatching,
   isDestroyed,
+  isSpecial,
   onReachEnd 
 }) {
   const enemyRef = useRef()
 
   useEffect(() => {
-    if (x >= 85) { // Adjust this value to match the Defense Line position
+    if (x >= 85) {
       onReachEnd()
     }
   }, [x, onReachEnd])
@@ -40,9 +41,13 @@ export function Enemy({
         "absolute px-4 py-2 rounded-md font-mono text-base font-bold",
         "neubrutalism-border neubrutalism-shadow",
         "transition-all duration-100",
-        wave <= 2 && "bg-[#FFE14C] text-black",
-        wave > 2 && wave <= 4 && "bg-[#9EE493] text-black",
-        wave > 4 && "bg-[#FF6B6B] text-black",
+        isSpecial ? "bg-amber-300 border-amber-600" : cn(
+          wave === 1 && "bg-[#ffb800] text-black", // Warm yellow that matches the game's playful style
+          wave === 2 && "bg-[#9EE493] text-black",
+          wave === 3 && "bg-[#FF6B6B] text-black",
+          wave === 4 && "bg-[#A78BFA] text-black",
+          wave === 5 && "bg-[#F472B6] text-black",
+        ),
         isMatching && "ring-4 ring-black scale-110",
         isDestroyed && "pointer-events-none"
       )}
@@ -54,6 +59,7 @@ export function Enemy({
       )}>
         {word}
       </span>
+      {isSpecial && <span className="absolute -top-2 -right-2 text-xs">✨</span>}
 
       {isDestroyed && (
         <div className="absolute inset-0 flex items-center justify-center">
