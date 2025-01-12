@@ -1,20 +1,25 @@
 import { useGameStore } from '@/lib/stores/gameStore'
 import { Button } from "@/components/ui/button"
 import { useEffect, useRef } from 'react'
+import { triggerConfetti } from './ConfettiEffect'
 
 export function GameOverPopup() {
   const { score, highScore, wave, actions } = useGameStore()
   const isNewHighScore = score > highScore
   const updateAttempted = useRef(false)
+  const confettiTriggered = useRef(false)
 
   useEffect(() => {
-    if (isNewHighScore) {
+    if (isNewHighScore && !confettiTriggered.current) {
+      triggerConfetti();
+      confettiTriggered.current = true;
       actions.updateHighScore();
     }
   }, [isNewHighScore, actions]);
 
   const handleQuit = () => {
     updateAttempted.current = false;
+    confettiTriggered.current = false;
     actions.quitGame();
   }
 

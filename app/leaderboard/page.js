@@ -19,6 +19,31 @@ const getMedalEmoji = (rank) => {
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingText, setLoadingText] = useState("");
+
+  useEffect(() => {
+    async function animateLoading() {
+      const text = "Loading..."
+      let currentText = ""
+      
+      while (loading) {
+        for (let i = 0; i < text.length; i++) {
+          if (!loading) break;
+          currentText += text[i]
+          setLoadingText(currentText)
+          await new Promise(resolve => setTimeout(resolve, 300))
+        }
+        if (!loading) break;
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        currentText = ""
+        setLoadingText("")
+      }
+    }
+
+    if (loading) {
+      animateLoading()
+    }
+  }, [loading])
 
   useEffect(() => {
     async function fetchLeaderboard() {
@@ -45,7 +70,7 @@ export default function Leaderboard() {
           <h1 className="text-4xl font-bold text-center mb-8">Leaderboard</h1>
           <Card className="p-6 neubrutalism-border neubrutalism-shadow">
             {loading ? (
-              <div className="text-center py-8">Loading...</div>
+              <div className="text-center py-8">{loadingText}</div>
             ) : (
               <div className="space-y-4">
                 <div className="grid grid-cols-3 font-bold text-lg border-b pb-2">
