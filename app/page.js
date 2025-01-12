@@ -5,9 +5,34 @@ import { useGameStore } from "@/lib/stores/gameStore"
 import { Navbar } from "@/components/Navbar"
 import { cn } from "@/lib/utils"
 import { Keyboard, Sparkles, Target } from "lucide-react"
+import { useState, useEffect } from "react"
 
 export default function Home() {
   const { isPlaying, gameOver, actions } = useGameStore()
+  const [isLoading, setIsLoading] = useState(false)
+  const [loadingText, setLoadingText] = useState("")
+
+  // Reset loading states when game is over or not playing
+  useEffect(() => {
+    if (!isPlaying || gameOver) {
+      setIsLoading(false)
+      setLoadingText("")
+    }
+  }, [isPlaying, gameOver])
+
+  const handleStartGame = async () => {
+    setIsLoading(true)
+    const text = "LOADING..."
+    let currentText = ""
+    
+    for (let i = 0; i < text.length; i++) {
+      currentText += text[i]
+      setLoadingText(currentText)
+      await new Promise(resolve => setTimeout(resolve, 300))
+    }
+    
+    actions.startGame()
+  }
 
   return (
     <>
@@ -30,10 +55,11 @@ export default function Home() {
               </p>
               <Button 
                 size="lg" 
-                onClick={actions.startGame}
+                onClick={handleStartGame}
+                disabled={isLoading}
                 className="neubrutalism-border neubrutalism-shadow text-lg px-8 py-6"
               >
-                Start Game
+                {isLoading ? loadingText : "Start Game"}
               </Button>
             </div>
 

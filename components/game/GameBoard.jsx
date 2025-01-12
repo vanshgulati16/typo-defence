@@ -11,6 +11,7 @@ import { TypeInput } from './TypeInput'
 import { WaveMessage } from './WaveMessage'
 import { GameOverPopup } from './GameOverPopup'
 import { Progress } from "@/components/ui/progress"
+import { LoadingOverlay } from './LoadingOverlay'
 
 export function GameBoard() {
   const { 
@@ -20,7 +21,8 @@ export function GameBoard() {
     highScore,
     isPlaying, 
     showWaveMessage, 
-    gameOver, 
+    gameOver,
+    isLoading,
     actions 
   } = useGameStore()
   
@@ -88,7 +90,8 @@ export function GameBoard() {
         </div>
       </div>
       <div className="h-[480px] relative rounded-lg bg-[#F5F5F5] overflow-hidden neubrutalism-border">
-        {/* Defense Line */}
+        {/* Defence Line */}
+        {isLoading && <LoadingOverlay />}
         <div className="absolute right-8 top-0 bottom-0 w-2 bg-black/20" />
         <div className="absolute right-0 top-0 bottom-0 w-16 bg-black/5" />
         

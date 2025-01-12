@@ -1,10 +1,22 @@
 import { useGameStore } from '@/lib/stores/gameStore'
 import { Button } from "@/components/ui/button"
+import { useEffect, useRef } from 'react'
 
 export function GameOverPopup() {
   const { score, highScore, wave, actions } = useGameStore()
+  const isNewHighScore = score > highScore
+  const updateAttempted = useRef(false)
 
-  const isNewHighScore = score >= highScore
+  useEffect(() => {
+    if (isNewHighScore) {
+      actions.updateHighScore();
+    }
+  }, [isNewHighScore, actions]);
+
+  const handleQuit = () => {
+    updateAttempted.current = false;
+    actions.quitGame();
+  }
 
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-50">
@@ -37,7 +49,7 @@ export function GameOverPopup() {
           <Button 
             size="lg" 
             variant="destructive" 
-            onClick={actions.quitGame}
+            onClick={handleQuit}
           >
             Quit
           </Button>

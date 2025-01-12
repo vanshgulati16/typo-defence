@@ -1,5 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import { UserProfile } from "./UserProfile"
 
 export function Navbar() {
   return (
@@ -29,17 +31,36 @@ export function Navbar() {
 
           {/* Auth Buttons */}
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline"
-              className="neubrutalism-border neubrutalism-shadow"
-            >
-              Log in
-            </Button>
-            <Button 
-              className="neubrutalism-border neubrutalism-shadow"
-            >
-              Sign up
-            </Button>
+            <div className="gap-2 text-lg">
+              <UserProfile />
+            </div>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button 
+                  variant="outline"
+                  className="neubrutalism-border neubrutalism-shadow"
+                >
+                  Log in
+                </Button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <Button 
+                  className="neubrutalism-border neubrutalism-shadow"
+                >
+                  Sign up
+                </Button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton 
+                // afterSignOutCallback={() => window.location.href = '/'}
+                appearance={{
+                  elements: {
+                    avatarBox: "w-10 h-10"
+                  }
+                }}
+              />
+            </SignedIn>
           </div>
         </div>
       </div>
