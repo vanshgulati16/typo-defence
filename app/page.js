@@ -60,7 +60,7 @@ export default function Home() {
               {/* Hero Section */}
               <div className="text-center mb-16">
                 <h1 className="text-6xl font-bold mb-6">
-                  <Cover>Typo Defense</Cover>
+                  <Cover>Typo Defence</Cover>
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
                   A unique typing challenge where you must match the typos exactly! See "accomodate"? 
