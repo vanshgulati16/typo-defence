@@ -1,6 +1,6 @@
 # Typo Defence
 
-![Typo Defence Banner](public/banner.png)
+![Typo Defence Banner](public/assets/banner.png)
 
 > Master the Art of Imperfection
 
