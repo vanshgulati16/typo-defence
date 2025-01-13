@@ -4,17 +4,31 @@ import { Button } from "@/components/ui/button"
 import { useGameStore } from "@/lib/stores/gameStore"
 import { Navbar } from "@/components/Navbar"
 import { cn } from "@/lib/utils"
-import { Keyboard, Sparkles, Target } from "lucide-react"
+import { Keyboard, Sparkles, Target, Laptop2 } from "lucide-react"
 import { useState, useEffect } from "react"
-import { Cover } from "@/components/ui/cover";
-import Particles from "@/components/ui/particles";
-import RetroGrid from "@/components/ui/retro-grid";
+import { Cover } from "@/components/ui/cover"
+import Particles from "@/components/ui/particles"
+import RetroGrid from "@/components/ui/retro-grid"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function Home() {
   const { isPlaying, gameOver, actions } = useGameStore()
   const [isLoading, setIsLoading] = useState(false)
   const [loadingText, setLoadingText] = useState("")
+  const [isMobile, setIsMobile] = useState(false)
 
+  useEffect(() => {
+    const checkDevice = () => {
+      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+      setIsMobile(mobile)
+    }
+
+    checkDevice()
+    window.addEventListener('resize', checkDevice)
+    return () => window.removeEventListener('resize', checkDevice)
+  }, [])
 
   // Reset loading states when game is over or not playing
   useEffect(() => {
@@ -25,6 +39,7 @@ export default function Home() {
   }, [isPlaying, gameOver])
 
   const handleStartGame = async () => {
+    if (isMobile) return
     setIsLoading(true)
     const text = "LOADING..."
     let currentText = ""
@@ -37,7 +52,6 @@ export default function Home() {
     
     actions.startGame()
   }
-
 
   return (
     <>
@@ -57,6 +71,16 @@ export default function Home() {
               refresh
             />
             <main className="container max-w-5xl mx-auto relative z-10">
+              {isMobile && (
+                <Alert className="mb-8 neubrutalism-border neubrutalism-shadow">
+                  <Laptop2 className="h-4 w-4" />
+                  <AlertTitle>Desktop Only Game</AlertTitle>
+                  <AlertDescription>
+                    This game requires a keyboard and is best played on a desktop or laptop computer.
+                  </AlertDescription>
+                </Alert>
+              )}
+              
               {/* Hero Section */}
               <div className="text-center mb-16">
                 <h1 className="text-6xl font-bold mb-6">
@@ -70,8 +94,11 @@ export default function Home() {
                 <Button 
                   size="lg" 
                   onClick={handleStartGame}
-                  disabled={isLoading}
-                  className="neubrutalism-border neubrutalism-shadow text-lg px-8 py-6"
+                  disabled={isLoading || isMobile}
+                  className={cn(
+                    "neubrutalism-border neubrutalism-shadow text-lg px-8 py-6",
+                    isMobile && "opacity-50 cursor-not-allowed"
+                  )}
                 >
                   {isLoading ? loadingText : "Start Game"}
                 </Button>
