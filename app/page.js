@@ -4,15 +4,17 @@ import { Button } from "@/components/ui/button"
 import { useGameStore } from "@/lib/stores/gameStore"
 import { Navbar } from "@/components/Navbar"
 import { cn } from "@/lib/utils"
-import { Keyboard, Sparkles, Target, Laptop2 } from "lucide-react"
+import { Keyboard, Sparkles, Target, Laptop2, LogIn } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Cover } from "@/components/ui/cover"
 import Particles from "@/components/ui/particles"
 import RetroGrid from "@/components/ui/retro-grid"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useUser } from "@clerk/nextjs"
 
 export default function Home() {
   const { isPlaying, gameOver, actions } = useGameStore()
+  const { isLoaded, isSignedIn } = useUser()
   const [isLoading, setIsLoading] = useState(false)
   const [loadingText, setLoadingText] = useState("")
   const [isMobile, setIsMobile] = useState(false)
@@ -39,7 +41,7 @@ export default function Home() {
   }, [isPlaying, gameOver])
 
   const handleStartGame = async () => {
-    if (isMobile) return
+    if (isMobile || !isSignedIn) return
     setIsLoading(true)
     const text = "LOADING..."
     let currentText = ""
@@ -80,6 +82,16 @@ export default function Home() {
                   </AlertDescription>
                 </Alert>
               )}
+
+              {!isSignedIn && !isMobile && (
+                <Alert className="mb-8 neubrutalism-border neubrutalism-shadow">
+                  <LogIn className="h-4 w-4" />
+                  <AlertTitle>Sign up or log in Required</AlertTitle>
+                  <AlertDescription>
+                    Please sign up or log in to play and save your high scores.
+                  </AlertDescription>
+                </Alert>
+              )}
               
               {/* Hero Section */}
               <div className="text-center mb-16">
@@ -94,10 +106,10 @@ export default function Home() {
                 <Button 
                   size="lg" 
                   onClick={handleStartGame}
-                  disabled={isLoading || isMobile}
+                  disabled={isLoading || isMobile || !isSignedIn}
                   className={cn(
                     "neubrutalism-border neubrutalism-shadow text-lg px-8 py-6",
-                    isMobile && "opacity-50 cursor-not-allowed"
+                    (isMobile || !isSignedIn) && "opacity-50 cursor-not-allowed"
                   )}
                 >
                   {isLoading ? loadingText : "Start Game"}

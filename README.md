@@ -1,4 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Typo Defence
+
+![Typo Defence Banner](public/banner.png)
+
+> Master the Art of Imperfection
+
+## Overview
+
+Typo Defence flips traditional typing games on their head. Instead of correcting mistakes, you'll need to match common typos exactly while watching out for special golden words that demand perfect spelling. Race against time through progressive waves, where your ability to intentionally misspell words like 'definately' and 'seperate' is your greatest weapon.
+
+## Features
+
+- 🎯 Match common typos exactly to score points
+- ✨ Special golden words require perfect spelling for bonus points
+- 🌊 Progressive wave system with increasing difficulty
+- 🏆 Global leaderboard to compete with other players
+- 🎨 Modern neubrutalism design
+- 🔐 Secure authentication system
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React
+- **Authentication**: Clerk
+- **Database**: Amazon DynamoDB
+- **Styling**: Tailwind CSS, Shadcn/UI
+- **State Management**: Zustand
+- **Animations**: Framer Motion
 
 ## Getting Started
 
@@ -16,21 +42,29 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Requirements
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Desktop/Laptop device (not playable on mobile)
+- Modern web browser
+- User account (sign in required to play)
 
-## Learn More
+## Game Rules
 
-To learn more about Next.js, take a look at the following resources:
+1. Type the misspelled words exactly as shown
+2. Watch out for golden words - these require correct spelling
+3. Progress through waves of increasing difficulty
+4. Compete for high scores on the global leaderboard
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Deploy on Vercel
+## Acknowledgments
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Thanks to the Next.js team for the amazing framework
+- Shadcn/UI for the beautiful component library
+- All our beta testers and early adopters
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+<p align="center">Made with ❤️ and intentional typos</p>
