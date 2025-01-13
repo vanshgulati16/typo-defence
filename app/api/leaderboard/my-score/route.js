@@ -1,6 +1,8 @@
 import { auth } from '@clerk/nextjs/server';
 import { leaderboardService } from '@/lib/services/leaderboard';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const { userId } = await auth();
