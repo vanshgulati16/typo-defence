@@ -8,6 +8,8 @@ import {
   UserButton
 } from '@clerk/nextjs'
 
+import { Analytics } from "@vercel/analytics/react"
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,6 +34,7 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics />
           {children}
         </body>
       </html>
