@@ -1,3 +1,4 @@
+import { auth } from '@clerk/nextjs/server';
 import { userService } from '@/lib/services/userService';
 // import { headers } from 'next/headers';
 
@@ -32,5 +33,22 @@ export async function GET(request) {
     return Response.json(user);
   } catch (error) {
     return Response.json({ error: 'Failed to fetch user' }, { status: 500 });
+  }
+}
+
+export async function PUT(request) {
+  try {
+    const { userId } = await auth();
+    const { username } = await request.json();
+    
+    if (!userId) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    await userService.updateUsername(userId, username);
+    return Response.json({ success: true });
+  } catch (error) {
+    console.error('Error updating username:', error);
+    return Response.json({ error: 'Failed to update username' }, { status: 500 });
   }
 } 

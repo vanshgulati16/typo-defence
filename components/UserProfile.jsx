@@ -1,42 +1,18 @@
 'use client'
 import { useUser } from "@clerk/nextjs";
 import { useEffect } from "react";
+import { useGameStore } from "../lib/stores/gameStore";
 
 export function UserProfile() {
   const { isLoaded, isSignedIn, user } = useUser();
+  const { actions } = useGameStore();
 
-  // Create/update user in database when signed in
   useEffect(() => {
-    async function createUserInDb() {
-      if (!isSignedIn || !user) return;
-
-      try {
-        const response = await fetch('/api/user', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: user.id,
-            username: user.username || user.firstName || 'Player'
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to create user');
-        }
-
-        console.log('✅ User saved to database:', {
-          userId: user.id,
-          username: user.username || user.firstName || 'Player'
-        });
-      } catch (error) {
-        console.error('❌ Error saving user:', error);
-      }
+    if (isSignedIn && user) {
+      const username = user.username || user.firstName || 'Player';
+      actions.setUsername(username);
     }
-
-    createUserInDb();
-  }, [isSignedIn, user]);
+  }, [isSignedIn, user, actions]);
 
   if (!isLoaded || !isSignedIn) return null;
 

@@ -2,6 +2,8 @@
 import { Navbar } from "@/components/Navbar"
 import { Card } from "@/components/ui/card"
 import { useEffect, useState } from "react"
+import { useUser } from "@clerk/nextjs"
+import { cn } from "@/lib/utils"
 
 const getMedalEmoji = (rank) => {
   switch (rank) {
@@ -17,6 +19,7 @@ const getMedalEmoji = (rank) => {
 }
 
 export default function Leaderboard() {
+  const { user } = useUser()
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingText, setLoadingText] = useState("");
@@ -62,6 +65,12 @@ export default function Leaderboard() {
     fetchLeaderboard();
   }, []);
 
+  const isCurrentUser = (username) => {
+    if (!user) return false;
+    const currentUsername = user.username || user.firstName || 'Player';
+    return username === currentUsername;
+  };
+
   return (
     <>
       <Navbar />
@@ -79,7 +88,13 @@ export default function Leaderboard() {
                   <span className="text-right">High Score</span>
                 </div>
                 {leaderboard.map((entry) => (
-                  <div key={entry.rank} className="grid grid-cols-3 items-center">
+                  <div 
+                    key={entry.rank} 
+                    className={cn(
+                      "grid grid-cols-3 items-center p-2 rounded-lg transition-colors",
+                      isCurrentUser(entry.username) && "bg-primary/10 font-medium"
+                    )}
+                  >
                     <span className="font-mono flex items-center gap-2 w-32">
                       {entry.rank <= 3 && getMedalEmoji(entry.rank)}
                       #{entry.rank}

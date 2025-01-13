@@ -1,5 +1,6 @@
 import { auth } from '@clerk/nextjs/server';
 import { leaderboardService } from '@/lib/services/leaderboard';
+import { userService } from '@/lib/services/userService';
 
 export async function GET() {
   try {
@@ -20,18 +21,22 @@ export async function POST(request) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { score } = await request.json();
+    const { score, username } = await request.json();
     
     console.log('📝 Attempting to update score for:', { 
       userId,
-    //   username: user.username || user.firstName || 'Player',
+      username,
       score 
     });
 
+    // First update the username
+    await userService.updateUsername(userId, username);
+
+    // Then update the score
     const result = await leaderboardService.updateHighScore(
       userId,
-    //   user.username || user.firstName || 'Player',
-      score
+      score,
+      username
     );
 
     if (result) {

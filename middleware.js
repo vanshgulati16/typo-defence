@@ -11,7 +11,7 @@ export default clerkMiddleware({
 
         // Create a new request to the user API
         const response = await fetch('/api/user', {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },
